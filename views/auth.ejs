@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('includes/head.ejs') %>
+<body>
+    <main>
+        <% if(!loggedIn) {%>
+            <form action="/auth/login" method="post">
+                <div>
+                    <label for="userName">User Name</label>
+                    <input type="text" name="userName" id="userName" />
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" />
+                </div>
+                <button type="submit">Login</button>
+            </form>  
+        <% } else {%>
+            <form action="/auth/logout" method="post">
+                <input type="hidden" name="userName" id="userName"/>
+                <input type="hidden" name="idToken" id="idToken" value='<%=token %>'/>
+                <input type="hidden" name="accessToken" id="accessToken"  value='<%=accessToken %>'/>
+                <input type="input" name="refreshToken" id="refreshToken"  value='<%=refreshToken %>'/>
+                <button type="submit">Logout</button>
+            </form>
+            <% } %>
+            <div>
+                <% if( typeof err != 'undefined'){ %>
+                    ERR= <%= err %>
+                <% } %>
+            </div></br>  
+            <div> 
+                <% if( typeof token != 'undefined'){ %>
+                    ID Token= <%= token %>
+                <% } %>
+            </div></br>
+            <div> 
+                <% if( typeof accessToken != 'undefined'){ %>
+                    Access Token= <%= accessToken %>
+                <% } %>
+            </div></br>
+            <div> 
+                <% if( typeof refreshToken != 'undefined'){ %>
+                    Refresh Token= <%= refreshToken %>
+                <% } %>
+            </div>
+    </main>
+</body>
+</html>
